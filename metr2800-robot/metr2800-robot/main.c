@@ -9,6 +9,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "utils/motor.h"
 
 
 int main(void)
