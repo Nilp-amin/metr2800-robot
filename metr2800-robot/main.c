@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include "utils/motor.h"
 #include "utils/uart.h"
 
@@ -17,11 +18,15 @@
 int main(void)
 {
     /* Replace with your application code */
+	DDRD = (1 << DDRD7);
     while (1) {
-		break;
+		PORTD ^= (1 << PORTD7);
+		_delay_ms(50);
     }
+
 	
-	rotateCW(20);
-	rotateCCW(30);
+	
+	moveCW(20);
+	moveCCW(30);
 }
 
