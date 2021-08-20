@@ -15,18 +15,22 @@
 #include "utils/uart.h"
 
 
-int main(void)
-{
-    /* Replace with your application code */
+int main(void) {
+
+	
+    setupDriveTrain();
 	DDRD = (1 << DDRD7);
     while (1) {
 		PORTD ^= (1 << PORTD7);
-		_delay_ms(50);
+		rotateCW(512);
+		powerDownDriveTrain();
+		_delay_ms(1000);
+		rotateCCW(512);
     }
 
 	
 	
-	moveCW(20);
-	moveCCW(30);
+	rotateCW(20);
+	rotateCCW(30);
 }
 
