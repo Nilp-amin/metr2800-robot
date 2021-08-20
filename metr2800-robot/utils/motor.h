@@ -9,8 +9,10 @@
 #ifndef MOTOR_H_
 #define MOTOR_H_
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
-
-
+void moveCW(uint16_t angle);
+void moveCCW(uint16_t angle);
 
 #endif /* MOTOR_H_ */
