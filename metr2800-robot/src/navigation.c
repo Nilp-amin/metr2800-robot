@@ -6,7 +6,7 @@
 void setupNavSensors() {	
 	DDRD = 0b11111011; // set one input device, need to set another when know correct pins
 	_delay_ms(50);
-
+	
 	GICR |= 1<<INT0 // why red?
 	MCUCR |= 1<<ISC00;
 
@@ -22,7 +22,7 @@ int readDistance(int sensor) {
 
 	PORTD &= ~(1<<PIND0);
 	int16_t distance = pulse/58;
-	return distance
+	return distance;
 }
 
 ISR(INT0_vect) {
@@ -54,7 +54,7 @@ void locate() {
 	int dist[50];
 	int dist2[50];
 	int moveAngle = 5;
-	for (int i=0; i<50l i++) {
+	for (int i=0; i<50; i++) {
 		move(moveAngle, 0); // replace with move method, add import to header, may be in motor file
 		dist[i] = readDistance();
 	}

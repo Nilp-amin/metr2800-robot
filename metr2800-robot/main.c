@@ -14,6 +14,7 @@
 #include "utils/motor.h"
 #include "utils/navigation.h"
 #include "utils/uart.h"
+#include "utils/ir.h"
 
 
 int main(void) {

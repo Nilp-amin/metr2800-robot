@@ -7,6 +7,7 @@
 #include <avr/io.h>
 #include <math.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 
 #define  Trigger_pin	PA0 // confirm with schematic
 static volatile int pulse = 0;
