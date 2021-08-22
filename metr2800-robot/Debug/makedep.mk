@@ -6,5 +6,7 @@ main.c
 
 src\motor.c
 
+src\navigation.c
+
 src\uart.c
 
