@@ -3,21 +3,11 @@
 // notes TODO :: work out if ints should be int16_t
 // Check pins against schematic, then add second ultrasonic sensor
 
-void setupNavSensors() {	
-<<<<<<< HEAD
-	DDRD = 0b11111011; // set one input device, need to set another when know correct pins
-	_delay_ms(50);
-	
-	GICR |= 1<<INT0 // why red?
-	MCUCR |= 1<<ISC00;
-
-	sei();
-=======
+void setupNavSensors() {
 	DDRB = (1<<MOSI)|(1<<SSK)|(1<<SS)|(1<<RST)|(1<<DC);
 	
 	DDRD = 0b00001000;
 	PORTD = 0b00000000;
->>>>>>> d41dae839f525e9dc2978ba4c9aed7dd6e8df814
 	
 	EIMSK |= (1<<INT0);
 	EICRA |= (1<<ISC00);
@@ -26,16 +16,8 @@ void setupNavSensors() {
 	return;
 }
 
-int readDistance(int sensor) {	
+int readDistance(int sensor) {
 	// reads from one ultrasonic sensor, will make it read from different sensors based on input
-<<<<<<< HEAD
-	PORTD |= 1<<PIND0;
-	_delay_us(15);
-
-	PORTD &= ~(1<<PIND0);
-	int16_t distance = pulse/58;
-	return distance;
-=======
 	hc_sr04_cnt = 0;
 	
 	PORTD |= (1<<3);
@@ -45,7 +27,6 @@ int readDistance(int sensor) {
 	while (hc_sr04_cnt = 0); // loops until gets value
 	
 	return 0.000004 * hc_sr04_cnt/2 * 34300;
->>>>>>> d41dae839f525e9dc2978ba4c9aed7dd6e8df814
 }
 
 ISR(INT0_vect) {
