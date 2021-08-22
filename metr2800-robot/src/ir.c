@@ -14,7 +14,7 @@ void setupIR() {
 	// Set AVCC as ref voltage
 	ADMUX |= (1 << REFS0);
 	// Turn on ADC with free running mode and set clk to 125 KHz
-	ADCSRA |= (1 << ADEN) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
+	ADCSRA |= (1 << ADSC) | (1 << ADEN) | (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
 	// Convert all ADC0-7 pins to analog
 	DIDR0 |= 0xFF;
 }

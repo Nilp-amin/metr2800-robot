@@ -30,15 +30,15 @@
     <EraseKey />
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.stk500</avrtool>
     <avrtoolserialnumber />
@@ -164,19 +164,31 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ir.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\motor.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\navigation.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\turret.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\ir.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\motor.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\navigation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\turret.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\uart.h">
