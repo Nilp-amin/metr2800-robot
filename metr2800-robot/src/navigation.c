@@ -25,7 +25,7 @@ int readDistance(int sensor) {
 	return distance
 }
 
-void ISR(INT0_vect) {
+ISR(INT0_vect) {
 	// this could be better implemented in another file
 	// set the pulse width when delay sent
 	if (i == 0) {

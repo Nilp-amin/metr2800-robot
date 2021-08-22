@@ -14,8 +14,8 @@ static volatile int i = 0;
 
 void setupNavSensors();
 int readDistance(int sensor);
-void ISR(INT0_vect); // may already be implemented in another file
-float distanceCentre(int x, int y)
+ISR(INT0_vect); // may already be implemented in another file
+float distanceCentre(int x, int y);
 float angleCentre(int x, int y);
 void locate();
 

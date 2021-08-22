@@ -12,6 +12,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "utils/motor.h"
+#include "utils/navigation.h"
 #include "utils/uart.h"
 
 
