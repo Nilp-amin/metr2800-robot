@@ -4,9 +4,7 @@
 // Check pins against schematic, then add second ultrasonic sensor
 
 void setupNavSensors() {
-	DDRB = (1<<MOSI)|(1<<SSK)|(1<<SS)|(1<<RST)|(1<<DC);
-	
-	DDRD = 0b00001000;
+	DDRD = 0b00000011;
 	PORTD = 0b00000000;
 	
 	EIMSK |= (1<<INT0);
@@ -17,23 +15,26 @@ void setupNavSensors() {
 }
 
 int readDistance(int sensor) {
-	// reads from one ultrasonic sensor, will make it read from different sensors based on input
+	// select which sensor to read with 0 or 1, call readDistance twice in succession. 
 	hc_sr04_cnt = 0;
-	
-	PORTD |= (1<<3);
-	_delay_us(10);
-	PORTD &= ~(1<<3);
-	
+	if (sensor == 0) {
+		PORTD |= (1<<0);
+		_delay_us(10);
+		PORTD &= ~(1<<0);
+	} else if (sensor == 1) {
+		PORTD |= (1<<1);
+		_delay_us(10);
+		PORTD &= ~(1<<1);
+	}
+		
 	while (hc_sr04_cnt = 0); // loops until gets value
 	
 	return 0.000004 * hc_sr04_cnt/2 * 34300;
 }
 
+/*Measures time from trigger to echo of either of the ultrasonic sensors. */
 ISR(INT0_vect) {
-	// this could be better implemented in another file
-	// set the pulse width when delay sent
-	
-	if (PIND & (1<<2)) {
+	if (PIND & (1<<1) || PIND & (1<<0)) {
 		TCNT1 = 0;
 		} else {
 		hc_sr04_cnt = TCNT1;
@@ -51,7 +52,7 @@ float angleCentre(int x, int y) {
 }
 
 void locate() {
-	int dist[50];
+	int dist[50]; // calibrate array size, will be based on move angle 
 	int dist2[50];
 	int moveAngle = 5;
 	for (int i=0; i<50; i++) {
@@ -63,7 +64,7 @@ void locate() {
 	int angleToSquare;
 	int currentCoord[2];
 	for (int i=0; i<50; i++) {
-		if (dist[i] + dist2[i] > 25  && dist[i] + dist2[i] < 35) {
+		if (dist[i] + dist2[i] > 25  && dist[i] + dist2[i] < 35) { 
 			if (dist[i+90/moveAngle] + dist2[i+90/moveAngle] > 98 && dist2[i+90/moveAngle] + dist2[i+90/moveAngle] < 101) {
 				angleToSquare = i * moveAngle;
 				currentCoord[0] = (dist[i] < dist2[i]) ? dist[i] : dist2[i];
@@ -74,6 +75,8 @@ void locate() {
 	}
 	float distCentre = distanceCentre(currentCoord[0], currentCoord[1]);
 	float angle = angleCentre(currentCoord[0], currentCoord[1]);
+	// might be best to have these values stored in a struct, and return the struct. 
+	return;
 }
 
 

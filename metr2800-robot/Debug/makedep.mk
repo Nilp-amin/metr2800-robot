@@ -4,9 +4,13 @@
 
 main.c
 
+src\ir.c
+
 src\motor.c
 
 src\navigation.c
+
+src\turret.c
 
 src\uart.c
 
