@@ -17,7 +17,7 @@
 
 #define BACKWARD				0
 #define FORWARD					1
-#define STEPPER_SPEED			2
+#define STEPPER_SPEED			2 // Lowest we can get it before slip occurs
 
 // Left stepper motor
 #define L_STEPPER				0

@@ -9,16 +9,6 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-// added section start
-#define MOSI 3 // PORT B, pin 3
-#define MISO 4 // Port B, Pin 4
-#define SSK 5
-#define SS 2
-
-#define RST 0
-
-#define DC 1
-
 volatile unsigned short hc_sr04_cnt;
 // added end
 #define  Trigger_pin	PA0 // confirm with schematic

@@ -15,29 +15,17 @@ void onestep(uint8_t motor, uint8_t dir);
 
 void setupDriveTrain() {
 	// Set left stepper motor pins as outputs
-	L_STEPPER_DDR = (1 << L_STEPPER_PIN_1) | \
-					(1 << L_STEPPER_PIN_2) | \
-					(1 << L_STEPPER_PIN_3) | \
-					(1 << L_STEPPER_PIN_4);
+	L_STEPPER_DDR |= (1 << L_STEPPER_PIN_1) | (1 << L_STEPPER_PIN_2) | (1 << L_STEPPER_PIN_3) | (1 << L_STEPPER_PIN_4);
 					  
 	// Set right stepper motor pins as outputs
-	R_STEPPER_DDR = (1 << R_STEPPER_PIN_1) | \
-					(1 << R_STEPPER_PIN_2) | \
-					(1 << R_STEPPER_PIN_3) | \
-					(1 << R_STEPPER_PIN_4);
+	R_STEPPER_DDR |= (1 << R_STEPPER_PIN_1) | (1 << R_STEPPER_PIN_2) | (1 << R_STEPPER_PIN_3) | (1 << R_STEPPER_PIN_4);
 }
 
 void writeStepper(uint8_t motor, uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
 	if (motor == L_STEPPER) {
-		L_STEPPER_PORT = (a << L_STEPPER_PIN_1) | \
-						 (b << L_STEPPER_PIN_2) | \
-						 (c << L_STEPPER_PIN_3) | \
-						 (d << L_STEPPER_PIN_4);
+		L_STEPPER_PORT = (L_STEPPER_PORT & 0x0F) | (a << L_STEPPER_PIN_1) | (b << L_STEPPER_PIN_2) | (c << L_STEPPER_PIN_3) | (d << L_STEPPER_PIN_4);
 	} else if (motor == R_STEPPER) {
-		R_STEPPER_PORT = (a << R_STEPPER_PIN_1) | \
-						 (b << R_STEPPER_PIN_2) | \
-						 (c << R_STEPPER_PIN_3) | \
-						 (d << R_STEPPER_PIN_4);
+		R_STEPPER_PORT = (R_STEPPER_PORT & 0xF0) | (a << R_STEPPER_PIN_1) | (b << R_STEPPER_PIN_2) | (c << R_STEPPER_PIN_3) | (d << R_STEPPER_PIN_4);
 	}
 }
 

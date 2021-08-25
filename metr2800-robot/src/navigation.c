@@ -1,16 +1,17 @@
-#include "../utils/navigation.h"/
+#include "../utils/navigation.h"
 
 // notes TODO :: work out if ints should be int16_t
 // Check pins against schematic, then add second ultrasonic sensor
 
 void setupNavSensors() {
-	DDRD = 0b00000011;
-	PORTD = 0b00000000;
+	DDRD = (1 << PORTD0); //0b00000011;
+	//PORTD = 0b00000000;
 	
 	EIMSK |= (1<<INT0);
 	EICRA |= (1<<ISC00);
 	
 	TCCR1B = (0<<CS12)|(1<<CS11)|(1<<CS10);
+	sei();
 	return;
 }
 
@@ -18,22 +19,23 @@ int readDistance(int sensor) {
 	// select which sensor to read with 0 or 1, call readDistance twice in succession. 
 	hc_sr04_cnt = 0;
 	if (sensor == 0) {
-		PORTD |= (1<<0);
-		_delay_us(10);
-		PORTD &= ~(1<<0);
+		PORTD |= (1<<PORTD0);
+		_delay_us(12);
+		PORTD &= ~(1<<PORTD0);
 	} else if (sensor == 1) {
 		PORTD |= (1<<1);
-		_delay_us(10);
+		_delay_us(12);
 		PORTD &= ~(1<<1);
 	}
-		
-	while (hc_sr04_cnt = 0); // loops until gets value
-	
+
+	while (hc_sr04_cnt == 0); // loops until gets value
+
 	return 0.000004 * hc_sr04_cnt/2 * 34300;
 }
 
 /*Measures time from trigger to echo of either of the ultrasonic sensors. */
 ISR(INT0_vect) {
+	PORTD ^= (1 << PORTD7);
 	if (PIND & (1<<1) || PIND & (1<<0)) {
 		TCNT1 = 0;
 		} else {
