@@ -28,6 +28,11 @@ int main(void) {
 	sei();
 	uart_puts("Hello World\n");
     while (1) {
+		if (readDistance(0) < 10) {
+			uart_puts("Distance measured\n\r");
+		}
+		uart_puts("what\n\r");
+		_delay_ms(500);
 		/*
 		_delay_ms(1000);
 

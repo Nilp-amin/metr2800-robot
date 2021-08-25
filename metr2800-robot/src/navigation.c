@@ -35,7 +35,7 @@ int readDistance(int sensor) {
 
 /*Measures time from trigger to echo of either of the ultrasonic sensors. */
 ISR(INT0_vect) {
-	if (PIND & (1<<PIND3) || PIND & (1<<PIND3)) {
+	if (PIND & (1<<PIND2) || PIND & (1<<PIND2)) {
 		TCNT1 = 0;
 	} else {
 		hc_sr04_cnt = TCNT1;
