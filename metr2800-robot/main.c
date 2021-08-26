@@ -33,11 +33,9 @@ void navCode() {
 void driveTrainCode() {
 	setupDriveTrain();
 	while (1) {
-		parallelStep(FORWARD, 1);
-		powerDownDriveTrain();
+		forwardStep(200, 2);
 		_delay_ms(1000);
-		parallelStep(BACKWARD, 5);
-		powerDownDriveTrain();
+		backwardStep(200, 5);
 		_delay_ms(1000);
 	}
 }
@@ -45,9 +43,9 @@ void driveTrainCode() {
 void turretCode() {
 	setupDriveTrain();
 	while (1) {
-		rotateCW(90, 1);
+		rotateCW(150, 1);
 		_delay_ms(1000);
-		rotateCCW(90, 1);
+		rotateCCW(150, 1);
 		_delay_ms(1000);
 	}
 }
@@ -57,6 +55,7 @@ void IRCode() {
 	setupIR();
 	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
 	IrSensor sensors;
+	uart_puts("Starting IR:\n\r");
 	while (1) {
 		readIRArray(&sensors);
 		char buff[128];
@@ -64,7 +63,7 @@ void IRCode() {
 		uart_puts("IR light readings:\n\r");
 		uart_puts(buff);
 		_delay_ms(100);
-		if (sensors.ir8 > 50) {
+		if (sensors.ir8 > 200) {
 			shootLaser();
 		}
 	}
@@ -72,6 +71,7 @@ void IRCode() {
 
 int main(void) {
 	sei();
+	turretCode();
 }
 
 

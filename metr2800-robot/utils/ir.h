@@ -12,6 +12,7 @@
 #define F_CPU				16000000UL
 
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
 #define READINGS			50
 #define ADC0				0x00

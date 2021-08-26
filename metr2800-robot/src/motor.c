@@ -44,35 +44,35 @@ void writeStepper(uint8_t motor, uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
 void onestep(uint8_t motor, uint8_t dir, uint8_t speed) {
 	if (dir == FORWARD) {
 		writeStepper(motor, 1, 0, 0, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 1, 1, 0, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 1, 0, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 1, 1, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 0, 1, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 0, 1, 1);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 0, 0, 1);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 1, 0, 0, 1);
 	} else if (dir == BACKWARD) {
 		writeStepper(motor, 0, 0, 0, 1);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 0, 1, 1);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 0, 1, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 1, 1, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 0, 1, 0, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 1, 1, 0, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 1, 0, 0, 0);
-		var_delay(speed);
+		_delay_ms(1);
 		writeStepper(motor, 1, 0, 0, 1);
 	}
 }
@@ -138,15 +138,13 @@ void powerDownDriveTrain() {
 
 
 void forwardStep(uint16_t dist, uint8_t speed) {
-	int steps = (float) STEP_ANGLE / WHEEL_RADIUS;
-	for (uint16_t i = 0; i < steps; i++) {
+	for (uint16_t i = 0; i < dist; i++) {
 		parallelStep(FORWARD, speed);
 	}
 }
 
 void backwardStep(uint16_t dist, uint8_t speed) {
-	int steps = (float) STEP_ANGLE / WHEEL_RADIUS;
-	for (uint16_t i = 0; i < steps; i++) {
+	for (uint16_t i = 0; i < dist; i++) {
 		parallelStep(BACKWARD, speed);
 	}
 }
@@ -154,8 +152,7 @@ void backwardStep(uint16_t dist, uint8_t speed) {
 
 // Only coded for turret right now
 void rotateCW(uint16_t angle, uint8_t speed) {
-	int steps = (1/ (float) STEP_ANGLE) * angle;
-	for (int i = 0; i < steps; i++) {
+	for (int i = 0; i < angle; i++) {
 		onestep(TURRET_STEPPER, FORWARD, speed);
 		//onestep(L_STEPPER, FORWARD, speed);
 		//onestep(R_STEPPER, BACKWARD, speed);
@@ -164,8 +161,7 @@ void rotateCW(uint16_t angle, uint8_t speed) {
 
 // Only coded for turret right now
 void rotateCCW(uint16_t angle, uint8_t speed) {
-	int steps = (1/ (float) STEP_ANGLE) * angle;
-	for (int i = 0; i < steps; i++) {
+	for (int i = 0; i < angle; i++) {
 		onestep(TURRET_STEPPER, BACKWARD, speed);
 		//onestep(L_STEPPER, BACKWARD, speed);
 		//onestep(R_STEPPER, FORWARD, speed);

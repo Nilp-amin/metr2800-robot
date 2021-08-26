@@ -22,6 +22,7 @@ void setupIR() {
 uint16_t readADC(uint8_t adcNum) {
 	// Select the correct adc pin
 	ADMUX = (ADMUX & 0xF0) | adcNum;
+	ADCSRA |= (1 << ADSC);
 	_delay_ms(1);
 	int sum = 0;
 	for (int i = 0; i < READINGS+2; i++) {
