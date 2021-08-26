@@ -17,30 +17,61 @@
 #include "utils/ir.h"
 #include "utils/turret.h"
 
-int main(void) {
-
-	
-    setupDriveTrain();
-	setupLaser();
+void navCode() {
 	setupNavSensors();
 	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
-	DDRD |= (1 << DDRD7);
-	sei();
-	uart_puts("Hello World\n");
-    while (1) {
-		if (readDistance(0) < 10) {
-			uart_puts("Distance measured\n\r");
-		}
-		uart_puts("what\n\r");
+	while (1) {
+		int dist = readDistance(0);
+		char buff[128];
+		sprintf(buff, "%i\n\r", dist);
+		uart_puts("Distance measured:\n\r");
+		uart_puts(buff);
 		_delay_ms(500);
-		/*
-		_delay_ms(1000);
+	}
+}
 
-		PORTD ^= (1 << PORTD7);
-		shootLaser();
+void driveTrainCode() {
+	setupDriveTrain();
+	while (1) {
+		parallelStep(FORWARD, 1);
+		powerDownDriveTrain();
 		_delay_ms(1000);
-		*/
-    }
+		parallelStep(BACKWARD, 5);
+		powerDownDriveTrain();
+		_delay_ms(1000);
+	}
+}
+
+void turretCode() {
+	setupDriveTrain();
+	while (1) {
+		rotateCW(90, 1);
+		_delay_ms(1000);
+		rotateCCW(90, 1);
+		_delay_ms(1000);
+	}
+}
+
+void IRCode() {
+	setupLaser();
+	setupIR();
+	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
+	IrSensor sensors;
+	while (1) {
+		readIRArray(&sensors);
+		char buff[128];
+		sprintf(buff, "%i\n\r", sensors.ir8);
+		uart_puts("IR light readings:\n\r");
+		uart_puts(buff);
+		_delay_ms(100);
+		if (sensors.ir8 > 50) {
+			shootLaser();
+		}
+	}
+}
+
+int main(void) {
+	sei();
 }
 
 
