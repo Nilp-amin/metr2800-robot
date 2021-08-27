@@ -44,35 +44,35 @@ void writeStepper(uint8_t motor, uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
 void onestep(uint8_t motor, uint8_t dir, uint8_t speed) {
 	if (dir == FORWARD) {
 		writeStepper(motor, 1, 0, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 1, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 1, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 0, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 0, 1, 1);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 0, 0, 1);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 1, 0, 0, 1);
 	} else if (dir == BACKWARD) {
 		writeStepper(motor, 0, 0, 0, 1);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 0, 1, 1);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 0, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 1, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 0, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 1, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 1, 0, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);;
 		writeStepper(motor, 1, 0, 0, 1);
 	}
 }
