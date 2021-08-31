@@ -30,12 +30,30 @@ void navCode() {
 	}
 }
 
+void intellCode() {
+	setupNavSensors();
+	setupDriveTrain();
+	uart_init(UART_BAUD_SELECT(UART_BAUD_RATE, F_CPU));
+	while (1) {
+		int dist = readDistance(0);
+		forwardStep(1, 1);
+		if (dist < 10) {
+			powerDownDriveTrain();
+			_delay_ms(1000);
+			backwardStep(512, 1);
+		}
+	}
+}
+
+
 void driveTrainCode() {
 	setupDriveTrain();
 	while (1) {
-		forwardStep(200, 2);
-		_delay_ms(1000);
-		backwardStep(200, 5);
+		forwardStep(512, 2);
+		_delay_ms(500);
+		backwardStep(512, 2);
+		_delay_ms(500);
+		powerDownDriveTrain();
 		_delay_ms(1000);
 	}
 }
@@ -71,7 +89,8 @@ void IRCode() {
 
 int main(void) {
 	sei();
-	turretCode();
+	_delay_ms(100);
+	driveTrainCode();
 }
 
 

@@ -51,6 +51,7 @@
 void setupDriveTrain();
 void powerDownDriveTrain();
 
+void onestep(uint8_t motor, uint8_t dir, uint8_t speed);
 void parallelStep(uint8_t dir, uint8_t speed);
 void forwardStep(uint16_t dist, uint8_t speed);
 void backwardStep(uint16_t dist, uint8_t speed);
@@ -61,3 +62,13 @@ void rotateCW(uint16_t angle, uint8_t speed);
 void rotateCCW(uint16_t angle, uint8_t speed);
 
 #endif /* MOTOR_H_ */
+
+
+
+
+
+
+
+
+
+

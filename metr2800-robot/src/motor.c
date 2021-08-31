@@ -33,9 +33,11 @@ void setupDriveTrain() {
 
 void writeStepper(uint8_t motor, uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
 	if (motor == L_STEPPER) {
-		L_STEPPER_PORT = (L_STEPPER_PORT & 0x0F) | (a << L_STEPPER_PIN_1) | (b << L_STEPPER_PIN_2) | (c << L_STEPPER_PIN_3) | (d << L_STEPPER_PIN_4);
+		L_STEPPER_PORT &= 0x0F;
+		L_STEPPER_PORT |= (a << L_STEPPER_PIN_1) | (b << L_STEPPER_PIN_2) | (c << L_STEPPER_PIN_3) | (d << L_STEPPER_PIN_4);
 	} else if (motor == R_STEPPER) {
-		R_STEPPER_PORT = (R_STEPPER_PORT & 0xF0) | (a << R_STEPPER_PIN_1) | (b << R_STEPPER_PIN_2) | (c << R_STEPPER_PIN_3) | (d << R_STEPPER_PIN_4);
+		R_STEPPER_PORT &= 0xF0;
+		R_STEPPER_PORT |= (a << R_STEPPER_PIN_1) | (b << R_STEPPER_PIN_2) | (c << R_STEPPER_PIN_3) | (d << R_STEPPER_PIN_4);
 	} else if (motor == TURRET_STEPPER) {
 		TURRET_PORT = (TURRET_PORT & 0xF0) | (a << TURRET_PIN_1) | (b << TURRET_PIN_2) | (c << TURRET_PIN_3) | (d << TURRET_PIN_4);
 	}
@@ -44,36 +46,38 @@ void writeStepper(uint8_t motor, uint8_t a, uint8_t b, uint8_t c, uint8_t d) {
 void onestep(uint8_t motor, uint8_t dir, uint8_t speed) {
 	if (dir == FORWARD) {
 		writeStepper(motor, 1, 0, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 1, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 1, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 0, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 0, 1, 1);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 0, 0, 1);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 1, 0, 0, 1);
+		var_delay(speed);
 	} else if (dir == BACKWARD) {
 		writeStepper(motor, 0, 0, 0, 1);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 0, 1, 1);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 0, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 1, 1, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 0, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 1, 1, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 1, 0, 0, 0);
-		_delay_ms(1);
+		var_delay(speed);
 		writeStepper(motor, 1, 0, 0, 1);
+		var_delay(speed);
 	}
 }
 
@@ -139,13 +143,17 @@ void powerDownDriveTrain() {
 
 void forwardStep(uint16_t dist, uint8_t speed) {
 	for (uint16_t i = 0; i < dist; i++) {
-		parallelStep(FORWARD, speed);
+		onestep(R_STEPPER, FORWARD, speed);
+		onestep(L_STEPPER, FORWARD, speed);
 	}
 }
 
+
+
 void backwardStep(uint16_t dist, uint8_t speed) {
 	for (uint16_t i = 0; i < dist; i++) {
-		parallelStep(BACKWARD, speed);
+		onestep(L_STEPPER, BACKWARD, speed);
+		onestep(R_STEPPER, BACKWARD, speed);
 	}
 }
 
