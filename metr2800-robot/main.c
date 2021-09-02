@@ -49,10 +49,8 @@ void intellCode() {
 void driveTrainCode() {
 	setupDriveTrain();
 	while (1) {
-		forwardStep(512, 2);
-		_delay_ms(500);
-		backwardStep(512, 2);
-		_delay_ms(500);
+		forwardStep(512, 1);
+		backwardStep(512, 1);
 		powerDownDriveTrain();
 		_delay_ms(1000);
 	}
@@ -61,9 +59,9 @@ void driveTrainCode() {
 void turretCode() {
 	setupDriveTrain();
 	while (1) {
-		rotateCW(150, 1);
-		_delay_ms(1000);
-		rotateCCW(150, 1);
+		rotateCW(512, 1);
+		rotateCCW(512, 1);
+		powerDownDriveTrain();
 		_delay_ms(1000);
 	}
 }

@@ -142,6 +142,8 @@ void powerDownDriveTrain() {
 
 
 void forwardStep(uint16_t dist, uint8_t speed) {
+	powerDownDriveTrain(); // Lets steppers break down mag field
+	_delay_ms(200);
 	for (uint16_t i = 0; i < dist; i++) {
 		onestep(R_STEPPER, FORWARD, speed);
 		onestep(L_STEPPER, FORWARD, speed);
@@ -151,6 +153,8 @@ void forwardStep(uint16_t dist, uint8_t speed) {
 
 
 void backwardStep(uint16_t dist, uint8_t speed) {
+	powerDownDriveTrain(); // Lets steppers break down mag field
+	_delay_ms(200);
 	for (uint16_t i = 0; i < dist; i++) {
 		onestep(L_STEPPER, BACKWARD, speed);
 		onestep(R_STEPPER, BACKWARD, speed);
@@ -160,18 +164,20 @@ void backwardStep(uint16_t dist, uint8_t speed) {
 
 // Only coded for turret right now
 void rotateCW(uint16_t angle, uint8_t speed) {
+	powerDownDriveTrain(); // Lets steppers break down mag field
+	_delay_ms(200);
 	for (int i = 0; i < angle; i++) {
-		onestep(TURRET_STEPPER, FORWARD, speed);
-		//onestep(L_STEPPER, FORWARD, speed);
-		//onestep(R_STEPPER, BACKWARD, speed);
+		onestep(L_STEPPER, FORWARD, speed);
+		onestep(R_STEPPER, BACKWARD, speed);
 	}
 }
 
 // Only coded for turret right now
 void rotateCCW(uint16_t angle, uint8_t speed) {
+	powerDownDriveTrain(); // Lets steppers break down mag field
+	_delay_ms(200);
 	for (int i = 0; i < angle; i++) {
-		onestep(TURRET_STEPPER, BACKWARD, speed);
-		//onestep(L_STEPPER, BACKWARD, speed);
-		//onestep(R_STEPPER, FORWARD, speed);
+		onestep(L_STEPPER, BACKWARD, speed);
+		onestep(R_STEPPER, FORWARD, speed);
 	}
 }

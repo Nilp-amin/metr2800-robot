@@ -34,10 +34,10 @@
 #define R_STEPPER				1
 #define R_STEPPER_DDR			DDRC
 #define R_STEPPER_PORT			PORTC
-#define R_STEPPER_PIN_1			PORTC3
-#define R_STEPPER_PIN_2			PORTC2
-#define R_STEPPER_PIN_3			PORTC1
-#define R_STEPPER_PIN_4			PORTC0
+#define R_STEPPER_PIN_1			PORTC0
+#define R_STEPPER_PIN_2			PORTC1
+#define R_STEPPER_PIN_3			PORTC2
+#define R_STEPPER_PIN_4			PORTC3
 
 // Turret stepper motor
 #define TURRET_STEPPER			2
